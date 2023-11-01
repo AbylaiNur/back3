@@ -17,10 +17,21 @@ import org.springframework.data.jdbc.repository.config.EnableJdbcRepositories;
 public class SolidbankApplication implements CommandLineRunner {
 
     private ApplicationContext context;
-
+    private MyCLI myCLI;
+    private AccountBasicCLI accountBasicCLI;
+    private TransactionDepositCLI transactionDepositCLI;
+    private TransactionWithdrawCLI transactionWithdrawCLI;
     @Autowired
-    public SolidbankApplication(ApplicationContext context) {
+    public SolidbankApplication(ApplicationContext context,
+                                MyCLI myCLI,
+                                AccountBasicCLI accountBasicCLI,
+                                TransactionDepositCLI transactionDepositCLI,
+                                TransactionWithdrawCLI transactionWithdrawCLI) {
         this.context = context;
+        this.myCLI = myCLI;
+        this.accountBasicCLI = accountBasicCLI;
+        this.transactionDepositCLI = transactionDepositCLI;
+        this.transactionWithdrawCLI = transactionWithdrawCLI;
     }
 
     public static void main(String[] args) {
@@ -29,14 +40,6 @@ public class SolidbankApplication implements CommandLineRunner {
 
     @Override
     public void run(String... arg0) throws Exception {
-
-        MyCLI myCLI = context.getBean(MyCLI.class);
-
-		AccountBasicCLI accountBasicCLI = context.getBean(AccountBasicCLI.class);
-		TransactionDepositCLI transactionDepositCLI = context.getBean(TransactionDepositCLI.class);
-		TransactionWithdrawCLI transactionWithdrawCLI = context.getBean(TransactionWithdrawCLI.class);
-
-
         String helpMessage = "1 - show accounts\n2 - create account\n3 - deposit\n4 - withdraw\n5 - transfer\n6 - this message\n7 - exit\n";
         System.out.println("Welcome to CLI bank service");
         System.out.println("Enter operation number");
